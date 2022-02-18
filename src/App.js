@@ -1,25 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { noteData } from './firebaseConnect';
+import Form from './Form';
+import Nav from './Nav';
+import NoteList from './NoteList';
+import React, { Component } from 'react';
+import { push } from '@firebase/database';
+// import { push} from "firebase/database";
 
-function App() {
+class App extends Component {
+  addData=(item) =>{
+    console.log(item);
+    push(noteData, item)
+  }
+  render(){
+    // console.log(noteData);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Nav/>
+     <div className = "container">
+       <div className = "row">
+         <NoteList/>
+         <Form getData={(item) =>this.addData(item)}/>
+       </div>
+     </div>
     </div>
   );
+}
 }
 
 export default App;
